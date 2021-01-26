@@ -1,0 +1,12 @@
+{
+  "name": "enhanced-zorro-table",
+  "version": "0.0.7",
+  "peerDependencies": {
+    "@angular/common": "^11.1.0",
+    "@angular/core": "^11.1.0",
+    "ng-zorro-antd": "^11.1.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
+}

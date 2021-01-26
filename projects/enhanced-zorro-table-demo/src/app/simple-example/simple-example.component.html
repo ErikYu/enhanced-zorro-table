@@ -1,0 +1,15 @@
+<nz-tabset>
+  <nz-tab nzTitle="Preview">
+    <enhanced-zorro-table
+      [columns]="columns"
+      [rows]="rows"
+      [total]="total"
+    ></enhanced-zorro-table>
+  </nz-tab>
+  <nz-tab nzTitle="component.html">
+    <pre>{{ codeHtml }}</pre>
+  </nz-tab>
+  <nz-tab nzTitle="component.ts">
+    <pre>{{ codeTs }}</pre>
+  </nz-tab>
+</nz-tabset>

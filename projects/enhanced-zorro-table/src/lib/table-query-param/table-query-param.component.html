@@ -1,0 +1,22 @@
+<enhanced-dynamic-form
+  class="dynamic-form"
+  *ngIf="schema.length > 0"
+  [schema]="schema"
+  [extra]="extraTmpl"
+  (valueChanges)="onSearchChange($event)"
+></enhanced-dynamic-form>
+<ng-template #extraTmpl>
+  <div style="display: flex; flex-direction: row-reverse">
+    <nz-space [nzSize]="8">
+      <!--      <nz-space-item *ngIf="schema.length > 3">-->
+      <!--        <button (click)="toggle()" nz-button nzType="link">收起</button>-->
+      <!--      </nz-space-item>-->
+      <nz-space-item>
+        <button (click)="onSearch()" nz-button nzType="primary">搜索</button>
+      </nz-space-item>
+      <nz-space-item>
+        <button (click)="onReset()" nz-button>重置</button>
+      </nz-space-item>
+    </nz-space>
+  </div>
+</ng-template>

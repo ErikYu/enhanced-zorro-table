@@ -1,0 +1,38 @@
+:host {
+  display: block;
+}
+.search-box {
+  padding: 8px;
+}
+
+.search-box input {
+  width: 188px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.search-box button {
+  width: 90px;
+}
+
+.search-button {
+  margin-right: 8px;
+}
+
+::ng-deep .ant-table-pagination.ant-pagination {
+  margin-right: 16px;
+}
+
+.td-link {
+  color: #1890ff;
+  cursor: pointer;
+
+  &:hover {
+    color: #40a9ff;
+  }
+}
+
+:host ::ng-deep .ant-table-cell-fix-left,
+.ant-table-cell-fix-right {
+  z-index: 9999 !important;
+}

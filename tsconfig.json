@@ -5,7 +5,7 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
@@ -14,6 +14,16 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "paths": {
+      "dynamic-form": [
+        "dist/dynamic-form/dynamic-form",
+        "dist/dynamic-form"
+      ],
+      "remote-table": [
+        "dist/remote-table/remote-table",
+        "dist/remote-table"
+      ]
+    },
     "target": "es2015",
     "module": "es2020",
     "lib": [

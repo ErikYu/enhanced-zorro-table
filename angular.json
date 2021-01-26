@@ -3,5 +3,169 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "enhanced-zorro-table": {
+      "projectType": "library",
+      "root": "projects/enhanced-zorro-table",
+      "sourceRoot": "projects/enhanced-zorro-table/src",
+      "prefix": "enhanced",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/enhanced-zorro-table/tsconfig.lib.json",
+            "project": "projects/enhanced-zorro-table/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/enhanced-zorro-table/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/enhanced-zorro-table/src/test.ts",
+            "tsConfig": "projects/enhanced-zorro-table/tsconfig.spec.json",
+            "karmaConfig": "projects/enhanced-zorro-table/karma.conf.js",
+            "styles": [
+              "node_modules/ng-zorro-antd/ng-zorro-antd.less"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/enhanced-zorro-table/tsconfig.lib.json",
+              "projects/enhanced-zorro-table/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "enhanced-zorro-table-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less"
+        }
+      },
+      "root": "projects/enhanced-zorro-table-demo",
+      "sourceRoot": "projects/enhanced-zorro-table-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/enhanced-zorro-table-demo",
+            "index": "projects/enhanced-zorro-table-demo/src/index.html",
+            "main": "projects/enhanced-zorro-table-demo/src/main.ts",
+            "polyfills": "projects/enhanced-zorro-table-demo/src/polyfills.ts",
+            "tsConfig": "projects/enhanced-zorro-table-demo/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/enhanced-zorro-table-demo/src/favicon.ico",
+              "projects/enhanced-zorro-table-demo/src/assets"
+            ],
+            "styles": [
+              "projects/enhanced-zorro-table-demo/src/styles.less"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/enhanced-zorro-table-demo/src/environments/environment.ts",
+                  "with": "projects/enhanced-zorro-table-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "enhanced-zorro-table-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "enhanced-zorro-table-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "enhanced-zorro-table-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/enhanced-zorro-table-demo/src/test.ts",
+            "polyfills": "projects/enhanced-zorro-table-demo/src/polyfills.ts",
+            "tsConfig": "projects/enhanced-zorro-table-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/enhanced-zorro-table-demo/karma.conf.js",
+            "assets": [
+              "projects/enhanced-zorro-table-demo/src/favicon.ico",
+              "projects/enhanced-zorro-table-demo/src/assets"
+            ],
+            "styles": [
+              "projects/enhanced-zorro-table-demo/src/styles.less"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/enhanced-zorro-table-demo/tsconfig.app.json",
+              "projects/enhanced-zorro-table-demo/tsconfig.spec.json",
+              "projects/enhanced-zorro-table-demo/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/enhanced-zorro-table-demo/e2e/protractor.conf.js",
+            "devServerTarget": "enhanced-zorro-table-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "enhanced-zorro-table-demo:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "enhanced-zorro-table"
 }

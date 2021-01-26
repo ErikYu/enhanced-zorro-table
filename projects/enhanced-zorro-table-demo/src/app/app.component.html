@@ -1,0 +1,11 @@
+<nz-layout>
+  <nz-sider nzWidth="200px" style="height: 100vh">
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item [routerLink]="'simple'" nzMatchRouter>Simple Example</li>
+      <li nz-menu-item [routerLink]="'filter'" nzMatchRouter>Filter Example</li>
+    </ul>
+  </nz-sider>
+  <nz-content style="background: #fff; padding: 16px">
+    <router-outlet></router-outlet>
+  </nz-content>
+</nz-layout>

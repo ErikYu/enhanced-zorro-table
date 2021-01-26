@@ -1,0 +1,146 @@
+<enhanced-table-query-param
+  *ngIf="searchPos !== 'header' && _columns && _columns.length > 0"
+  [columns]="_columns"
+  [queryParam]="queryParam"
+  (queryParamChange)="paramFormChange($event)"
+></enhanced-table-query-param>
+<div style="background: #fff; margin-top: 16px">
+  <nz-table
+    *ngIf="_columns && _columns.length > 0"
+    #remoteTable
+    (nzQueryParams)="onQueryParamChange($event)"
+    [(nzPageIndex)]="queryParam.pageIndex"
+    [(nzPageSize)]="queryParam.pageSize"
+    [nzData]="rows"
+    [nzFrontPagination]="false"
+    [nzShowTotal]="totalTmpl"
+    [nzTotal]="total"
+    nzBordered
+    nzShowQuickJumper
+    nzSize="small"
+    [nzScroll]="scrollAt"
+  >
+    <thead>
+      <tr>
+        <th *ngIf="useIndex">序号</th>
+        <th
+          *ngFor="let header of _columns"
+          [nzColumnKey]="header.column"
+          [nzCustomFilter]="searchPos !== 'form' && header.useSearch"
+          [nzFilterFn]="searchPos !== 'form' && header.useFilter"
+          [nzFilterMultiple]="!!header.filterMultiple"
+          [nzFilters]="header.filterOptions"
+          [nzShowFilter]="searchPos !== 'form' && header.useFilter"
+          [nzSortFn]="header.useSort"
+          [nzSortOrder]="propSortMap.get(header.column)"
+          [nzLeft]="header.pinLeft || false"
+          [nzRight]="header.pinRight || false"
+          [nzWidth]="header.width"
+        >
+          {{ header.label }}
+          <nz-filter-trigger
+            (nzVisibleChange)="dropDownVisibleChange($event, header.column)"
+            *ngIf="propDropdownMap && propDropdownMap.get(header.column)"
+            [(nzVisible)]="dropdownVisibleMap[header.column]"
+            [nzActive]="customizedSearchForm.get(header.column).value"
+            [nzDropdownMenu]="propDropdownMap.get(header.column)"
+          >
+            <i nz-icon nzTheme="outline" nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of remoteTable.data; index as i">
+        <td *ngIf="useIndex">
+          {{
+            queryParam.pageSize * queryParam.pageIndex -
+              queryParam.pageSize +
+              i +
+              1
+          }}
+        </td>
+        <td
+          *ngFor="let col of _columns"
+          [nzRight]="col.pinRight || false"
+          [nzLeft]="col.pinLeft || false"
+        >
+          <div
+            [class.td-link]="!!col.onClick"
+            (click)="col.onClick && col.onClick(row)"
+          >
+            <ng-container *ngIf="!!col.tagged; else rawTmp">
+              <nz-tag [nzColor]="col.tagged(row)">
+                <ng-container>
+                  {{ col.propFn(row) }}
+                </ng-container>
+              </nz-tag>
+            </ng-container>
+            <ng-template #rawTmp>
+              <ng-container>
+                {{ col.propFn(row) }}
+              </ng-container>
+            </ng-template>
+          </div>
+          <ng-container *ngIf="col.actions && col.actions.length > 0">
+            <ng-container
+              *ngFor="let action of col.actions; index as actionIndex"
+            >
+              <button
+                (click)="action.onClick && action.onClick(row)"
+                [nzSize]="action.btnSize || 'small'"
+                [nzType]="action.btnType || 'primary'"
+                nz-button
+              >
+                <ng-container *ngIf="action.btnIcon; else labelTmpl">
+                  <i [nzType]="action.btnIcon" nz-icon theme="outline"></i>
+                </ng-container>
+                <ng-template #labelTmpl>
+                  {{ action.btnLabel }}
+                </ng-template>
+              </button>
+              <nz-divider
+                *ngIf="actionIndex < col.actions.length - 1"
+                nzType="vertical"
+              ></nz-divider>
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<form *ngIf="customizedSearchForm" [formGroup]="customizedSearchForm" nz-form>
+  <nz-dropdown-menu
+    #allMenus
+    *ngFor="let searchProp of customizedSearchProps"
+    [id]="searchProp"
+  >
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input
+          (keyup.enter)="onSearch(searchProp)"
+          [formControlName]="searchProp"
+          id="dropdown-input-{{ searchProp }}"
+          nz-input
+          placeholder=""
+        />
+        <button
+          (click)="onSearch(searchProp)"
+          class="search-button"
+          nz-button
+          nzSize="small"
+          nzType="primary"
+        >
+          搜索
+        </button>
+        <button (click)="onReset(searchProp)" nz-button nzSize="small">
+          重置
+        </button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+</form>
+<ng-template #totalTmpl let-range="range" let-total>
+  当前显示第{{ range[0] }}到{{ range[1] }}条，共 {{ total }} 条
+</ng-template>

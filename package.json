@@ -1,14 +1,17 @@
 {
   "name": "enhanced-zorro-table",
-  "version": "0.0.0",
+  "version": "0.0.7",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint"
+    "demo": "ng serve enhanced-zorro-table-demo --port=4231 --open",
+    "test": "ng test enhanced-zorro-table",
+    "lint": "ng lint",
+    "build": "ng-packagr -p projects/enhanced-zorro-table/ng-package.json",
+    "prettier-lib": "prettier --write \"projects/enhanced-zorro-table/**/*.*\"",
+    "prettier-demo": "prettier --write \"projects/enhanced-zorro-table-demo/src/app/**/*.*\"",
+    "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~11.1.0",
     "@angular/common": "~11.1.0",
@@ -18,11 +21,13 @@
     "@angular/platform-browser": "~11.1.0",
     "@angular/platform-browser-dynamic": "~11.1.0",
     "@angular/router": "~11.1.0",
+    "ng-zorro-antd": "^11.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1101.1",
     "@angular/cli": "~11.1.1",
     "@angular/compiler-cli": "~11.1.0",
     "@types/jasmine": "~3.6.0",
@@ -35,6 +40,8 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ng-packagr": "^11.0.0",
+    "prettier": "^2.1.1",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",

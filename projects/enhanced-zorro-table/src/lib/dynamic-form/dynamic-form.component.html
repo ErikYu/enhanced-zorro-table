@@ -1,0 +1,64 @@
+<form
+  nz-form
+  [formGroup]="form"
+  nzLayout="horizontal"
+  nzNoColon
+  style="overflow: hidden"
+>
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzSpan]="24 / countPerLine" *ngFor="let field of schema">
+      <nz-form-item>
+        <nz-form-label>{{ field.label }}</nz-form-label>
+        <nz-form-control>
+          <ng-container [ngSwitch]="field.typing">
+            <ng-template ngSwitchCase="text">
+              <input
+                nz-input
+                [formControlName]="field.column"
+                [placeholder]="field.label"
+              />
+            </ng-template>
+            <ng-template ngSwitchCase="select">
+              <nz-select
+                [nzPlaceHolder]="field.label"
+                [formControlName]="field.column"
+                nzAllowClear
+              >
+                <nz-option
+                  *ngFor="let o of field.options"
+                  [nzLabel]="o.text"
+                  [nzValue]="o.value"
+                ></nz-option>
+              </nz-select>
+            </ng-template>
+            <ng-template ngSwitchCase="multi-select">
+              <nz-select
+                [nzPlaceHolder]="field.label"
+                [formControlName]="field.column"
+                nzMode="multiple"
+                nzAllowClear
+              >
+                <nz-option
+                  *ngFor="let o of field.options"
+                  [nzLabel]="o.text"
+                  [nzValue]="o.value"
+                ></nz-option>
+              </nz-select>
+            </ng-template>
+            <ng-template ngSwitchCase="date-range">
+              <nz-range-picker
+                style="width: 100%"
+                [formControlName]="field.column"
+                nzAllowClear
+              ></nz-range-picker>
+            </ng-template>
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="24 / countPerLine" *ngFor="let _ of makeUpArr"></div>
+    <div nz-col [nzSpan]="24 / countPerLine">
+      <ng-container *ngTemplateOutlet="extra"></ng-container>
+    </div>
+  </div>
+</form>
