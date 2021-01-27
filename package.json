@@ -4,6 +4,7 @@
   "scripts": {
     "start": "ng serve enhanced-zorro-table-demo --port=4231 --open",
     "test": "ng test enhanced-zorro-table",
+    "ci:test": "ng test enhanced-zorro-table --browsers=ChromeHeadless --watch=false --code-coverage",
     "lint": "ng lint",
     "build-lib": "ng-packagr -p projects/enhanced-zorro-table/ng-package.json",
     "build-demo": "ng build enhanced-zorro-table-demo --prod --base-href=https://erikyu.github.io/enhanced-zorro-table/ --output-path=docs",

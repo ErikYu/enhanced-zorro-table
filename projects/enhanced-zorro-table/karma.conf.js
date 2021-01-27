@@ -30,7 +30,7 @@ module.exports = function (config) {
         "../../coverage/enhanced-zorro-table",
       ),
       subdir: ".",
-      reporters: [{ type: "html" }, { type: "text-summary" }],
+      reporters: [{ type: "html" }, { type: "text-summary" }, { type: 'lcov' }],
     },
     reporters: ["progress", "kjhtml"],
     port: 9876,

@@ -134,7 +134,7 @@ describe('TestEnhancedZorroTableComponent', () => {
     expect(!!downArrow.classes.active).toBeTrue();
   });
 
-  it('text search should work', fakeAsync(() => {
+  it('text search should work', () => {
     fixture.detectChanges(); // ngOnInit
     const nameSearchInput = fixture.debugElement.query(
       By.css('input.ant-input'),
@@ -157,8 +157,7 @@ describe('TestEnhancedZorroTableComponent', () => {
     });
     expect(component.remoteTableService.changePage).not.toHaveBeenCalled();
     expect(component.remoteTableService.changeSort).not.toHaveBeenCalled();
-    flush();
-  }));
+  });
 
   it('queryParam input should work', () => {
     component.queryParam = {
