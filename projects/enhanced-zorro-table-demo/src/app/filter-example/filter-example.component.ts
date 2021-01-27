@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {IColumn, IRemoteTableQueryParams} from '../../../../enhanced-zorro-table/src/lib/enhanced-zorro-table.model';
-interface IHero {
-  name: string;
-  age: number;
-  gender: 'f' | 'm';
-  race: string;
-  wowClass: string;
-}
+import {
+  IColumn,
+  IRemoteTableQueryParams,
+} from '../../../../enhanced-zorro-table/src/lib/enhanced-zorro-table.model';
+import { DatePipe } from '@angular/common';
+import { DataMockerService, IHero } from '../service/data-mocker.service';
+import { startWith } from 'rxjs/operators';
 
 const GenderDesc = new Map([
   ['f', 'Female'],
@@ -19,7 +18,12 @@ const GenderDesc = new Map([
 })
 export class FilterExampleComponent implements OnInit {
   columns: IColumn<IHero>[] = [
-    { label: 'Name', propFn: (row) => row.name, column: 'name', useSearch: true },
+    {
+      label: 'Name',
+      propFn: (row) => row.name,
+      column: 'name',
+      useSearch: true,
+    },
     { label: 'Age', propFn: (row) => row.age.toString(), useSort: true },
     { label: 'Class', propFn: (row) => row.wowClass },
     {
@@ -32,38 +36,28 @@ export class FilterExampleComponent implements OnInit {
         { text: 'Male', value: 'm' },
       ],
     },
-  ];
-  rows: IHero[] = [
-    { name: 'Thrall', age: 34, race: 'orc', wowClass: 'Shaman', gender: 'm' },
     {
-      name: 'Anduin Wrynn',
-      age: 24,
-      race: 'human',
-      wowClass: 'Priest',
-      gender: 'm',
-    },
-    {
-      name: 'Arthas Menethil',
-      age: 45,
-      race: 'human',
-      wowClass: 'Death knight',
-      gender: 'm',
-    },
-    {
-      name: 'Sylvanas Windrunner',
-      age: 34,
-      race: 'undead',
-      wowClass: 'Ranger',
-      gender: 'f',
+      label: 'Joined At',
+      propFn: (row) => new DatePipe('en_US').transform(row.joinedAt),
+      column: 'joinedAt',
     },
   ];
-  total = 12;
+  rows: IHero[] = [];
+  total = 0;
+  loading = false;
 
-  constructor() {}
+  constructor(private dataMockerService: DataMockerService) {}
 
   ngOnInit(): void {}
 
   queryParamChange(evt: IRemoteTableQueryParams): void {
-    console.log(evt);
+    this.loading = true;
+    this.dataMockerService
+      .getPaginatedHeroes(evt)
+      .subscribe(({ data, total }) => {
+        this.rows = data;
+        this.total = total;
+        this.loading = false;
+      });
   }
 }

@@ -8,6 +8,7 @@
   <nz-table
     *ngIf="_columns && _columns.length > 0"
     #remoteTable
+    [nzLoading]="loading"
     (nzQueryParams)="onQueryParamChange($event)"
     [(nzPageIndex)]="defaultQueryParam.pageIndex"
     [(nzPageSize)]="defaultQueryParam.pageSize"

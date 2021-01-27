@@ -8,6 +8,7 @@
     "test": "ng test enhanced-zorro-table",
     "lint": "ng lint",
     "build": "rm -rf ./dist && ng-packagr -p projects/enhanced-zorro-table/ng-package.json",
+    "prettier": "yarn run prettier-demo && yarn run prettier-lib",
     "prettier-lib": "prettier --write \"projects/enhanced-zorro-table/**/*.*\"",
     "prettier-demo": "prettier --write \"projects/enhanced-zorro-table-demo/src/app/**/*.*\"",
     "e2e": "ng e2e"

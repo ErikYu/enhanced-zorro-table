@@ -46,6 +46,8 @@ export class EnhancedZorroTableComponent<T = any>
   // data rows
   @Input() rows: T[] = [];
 
+  @Input() loading = false;
+
   // default param
   defaultQueryParam: IRemoteTableQueryParams = {
     pageIndex: 1,
@@ -110,7 +112,9 @@ export class EnhancedZorroTableComponent<T = any>
         const { conf: prevConf, searchProps: prevSearchProps } = prev;
         if (item.useSearch) {
           if (!item.column) {
-            throw Error(`Column ${item.label} is using useSearch, must implement "column" prop`);
+            throw Error(
+              `Column ${item.label} is using useSearch, must implement "column" prop`,
+            );
           }
           return {
             conf: {

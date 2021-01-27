@@ -160,10 +160,10 @@ describe('TestEnhancedZorroTableComponent', () => {
     flush();
   }));
 
-  it('queryParam input should work',  () => {
+  it('queryParam input should work', () => {
     component.queryParam = {
-      filter: [{key: 'gender', value: 'f'}],
-      search: {name: 'Wow'},
+      filter: [{ key: 'gender', value: 'f' }],
+      search: { name: 'Wow' },
     };
     fixture.detectChanges();
     expect(component).toBeTruthy();
