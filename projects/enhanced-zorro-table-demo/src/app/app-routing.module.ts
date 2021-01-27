@@ -6,6 +6,7 @@ import { FilterExampleComponent } from './filter-example/filter-example.componen
 const routes: Routes = [
   { path: 'simple', component: SimpleExampleComponent },
   { path: 'filter', component: FilterExampleComponent },
+  { path: '**', redirectTo: 'simple' },
 ];
 
 @NgModule({
