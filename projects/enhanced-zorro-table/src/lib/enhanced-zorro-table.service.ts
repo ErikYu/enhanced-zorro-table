@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, merge, Observable, Subject } from 'rxjs';
-import { NzTableQueryParams, NzTableSortOrder } from 'ng-zorro-antd/table';
-import { debounceTime, map, mergeAll } from 'rxjs/operators';
+import { combineLatest, Observable, Subject } from 'rxjs';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import {debounceTime, map} from 'rxjs/operators';
 
 type ISorts = {
   sort: NzTableQueryParams['sort'];

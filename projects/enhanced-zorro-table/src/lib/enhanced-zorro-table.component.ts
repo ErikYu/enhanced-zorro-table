@@ -37,15 +37,16 @@ export class EnhancedZorroTableComponent<T = any>
   } = {};
   @Input() searchPos: searchPos = 'form';
   @Input() useIndex = false;
-  // 表格列定义
+
+  // column def
   @Input() columns: IColumn<T>[] = [];
   // tslint:disable-next-line:variable-name
   _columns: IStaticColumn<T>[] = [];
 
-  // 数据
+  // data rows
   @Input() rows: T[] = [];
 
-  // 传入默认的查询参数
+  // default param
   @Input() queryParam: IRemoteTableQueryParams = {
     pageIndex: 1,
     pageSize: DF_PAGE_SIZE,
@@ -98,7 +99,7 @@ export class EnhancedZorroTableComponent<T = any>
         const { conf: prevConf, searchProps: prevSearchProps } = prev;
         if (item.useSearch) {
           if (!item.column) {
-            throw Error('useFilter must appear with column');
+            throw Error(`Column ${item.label} is using useSearch, must implement "column" prop`);
           }
           return {
             conf: {
@@ -182,6 +183,10 @@ export class EnhancedZorroTableComponent<T = any>
       });
       this.remoteTableService.changeSearch({
         search: this.customizedSearchForm.value,
+      });
+      this.remoteTableService.changePage({
+        pageIndex: evt.pageIndex,
+        pageSize: evt.pageSize,
       });
     } else if (this.searchPos === 'form') {
       // 使用form搜索时，由于sort信息仍在nz-table的header上

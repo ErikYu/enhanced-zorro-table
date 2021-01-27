@@ -10,11 +10,13 @@ import { SimpleExampleComponent } from './simple-example/simple-example.componen
 import { FilterExampleComponent } from './filter-example/filter-example.component';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [AppComponent, SimpleExampleComponent, FilterExampleComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     EnhancedZorroTableModule,
     NzLayoutModule,

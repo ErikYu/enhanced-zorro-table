@@ -1,1 +1,17 @@
-<p>filter-example works!</p>
+<nz-tabset>
+  <nz-tab nzTitle="Preview">
+    <enhanced-zorro-table
+      searchPos="header"
+      [columns]="columns"
+      [rows]="rows"
+      [total]="total"
+      (queryParamChange)="queryParamChange($event)"
+    ></enhanced-zorro-table>
+  </nz-tab>
+  <nz-tab nzTitle="component.html">
+    <pre></pre>
+  </nz-tab>
+  <nz-tab nzTitle="component.ts">
+    <pre></pre>
+  </nz-tab>
+</nz-tabset>
