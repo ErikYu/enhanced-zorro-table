@@ -47,7 +47,13 @@ export class EnhancedZorroTableComponent<T = any>
   @Input() rows: T[] = [];
 
   // default param
-  defaultQueryParam: IRemoteTableQueryParams;
+  defaultQueryParam: IRemoteTableQueryParams = {
+    pageIndex: 1,
+    pageSize: DF_PAGE_SIZE,
+    sort: [],
+    filter: [],
+    search: {},
+  };
   @Input()
   set queryParam(val: Partial<IRemoteTableQueryParams>) {
     this.defaultQueryParam = {

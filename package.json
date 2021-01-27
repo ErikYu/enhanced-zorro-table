@@ -1,13 +1,13 @@
 {
   "name": "enhanced-zorro-table",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "demo": "ng serve enhanced-zorro-table-demo --port=4231 --open",
     "test": "ng test enhanced-zorro-table",
     "lint": "ng lint",
-    "build": "ng-packagr -p projects/enhanced-zorro-table/ng-package.json",
+    "build": "rm -rf ./dist && ng-packagr -p projects/enhanced-zorro-table/ng-package.json",
     "prettier-lib": "prettier --write \"projects/enhanced-zorro-table/**/*.*\"",
     "prettier-demo": "prettier --write \"projects/enhanced-zorro-table-demo/src/app/**/*.*\"",
     "e2e": "ng e2e"
