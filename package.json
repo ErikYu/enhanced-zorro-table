@@ -6,7 +6,7 @@
     "test": "ng test enhanced-zorro-table",
     "lint": "ng lint",
     "build-lib": "ng-packagr -p projects/enhanced-zorro-table/ng-package.json",
-    "build-demo": "ng build enhanced-zorro-table-demo --prod --output-path=demo",
+    "build-demo": "ng build enhanced-zorro-table-demo --prod --output-path=docs",
     "prettier": "yarn run prettier-demo && yarn run prettier-lib",
     "prettier-lib": "prettier --write \"projects/enhanced-zorro-table/**/*.*\"",
     "prettier-demo": "prettier --write \"projects/enhanced-zorro-table-demo/src/app/**/*.*\"",
