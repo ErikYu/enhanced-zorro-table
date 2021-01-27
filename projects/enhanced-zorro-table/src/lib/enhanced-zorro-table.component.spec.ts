@@ -99,7 +99,7 @@ describe('TestEnhancedZorroTableComponent', () => {
       { name: 'name4', age: 17, gender: 'f' },
       { name: 'name5', age: 18, gender: 'f' },
     ];
-    component.queryParam = {
+    component.defaultQueryParam = {
       pageIndex: 1,
       pageSize: 5,
       search: {},
@@ -107,14 +107,15 @@ describe('TestEnhancedZorroTableComponent', () => {
       sort: [],
     };
     component.total = 11;
-    fixture.detectChanges(); // ngOnInit
   });
 
   it('should init successfully', () => {
+    fixture.detectChanges(); // ngOnInit
     expect(component).toBeTruthy();
   });
 
   it('sort should work', () => {
+    fixture.detectChanges(); // ngOnInit
     const ageHeader = fixture.debugElement.queryAll(By.css('th'))[1];
 
     const upArrow = ageHeader.query(By.css('.anticon-caret-up'));
@@ -134,6 +135,7 @@ describe('TestEnhancedZorroTableComponent', () => {
   });
 
   it('text search should work', fakeAsync(() => {
+    fixture.detectChanges(); // ngOnInit
     const nameSearchInput = fixture.debugElement.query(
       By.css('input.ant-input'),
     );
@@ -157,4 +159,17 @@ describe('TestEnhancedZorroTableComponent', () => {
     expect(component.remoteTableService.changeSort).not.toHaveBeenCalled();
     flush();
   }));
+
+  it('queryParam input should work',  () => {
+    component.queryParam = {
+      filter: [{key: 'gender', value: 'f'}],
+      search: {name: 'Wow'},
+    };
+    fixture.detectChanges();
+    expect(component).toBeTruthy();
+    const nameSearchInput = fixture.debugElement.query(
+      By.css('input.ant-input'),
+    );
+    expect(nameSearchInput.nativeElement.value).toBe('Wow');
+  });
 });

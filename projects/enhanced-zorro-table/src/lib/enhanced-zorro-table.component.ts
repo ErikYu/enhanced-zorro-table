@@ -47,13 +47,18 @@ export class EnhancedZorroTableComponent<T = any>
   @Input() rows: T[] = [];
 
   // default param
-  @Input() queryParam: IRemoteTableQueryParams = {
-    pageIndex: 1,
-    pageSize: DF_PAGE_SIZE,
-    sort: [],
-    filter: [],
-    search: {},
-  };
+  defaultQueryParam: IRemoteTableQueryParams;
+  @Input()
+  set queryParam(val: Partial<IRemoteTableQueryParams>) {
+    this.defaultQueryParam = {
+      pageIndex: 1,
+      pageSize: DF_PAGE_SIZE,
+      sort: [],
+      filter: [],
+      search: {},
+      ...val,
+    };
+  }
   @Output() queryParamChange = new EventEmitter<IRemoteTableQueryParams>();
 
   // 自定义搜索框组件列表
@@ -84,11 +89,11 @@ export class EnhancedZorroTableComponent<T = any>
       this.queryParamChange.emit(res);
     });
     this.propSortMap = new Map<string, NzTableSortOrder>(
-      this.queryParam.sort.map(({ key, value }) => [key, value]),
+      this.defaultQueryParam.sort.map(({ key, value }) => [key, value]),
     );
 
     const propFilterMap = new Map<string, any>(
-      this.queryParam.filter.map(({ key, value }) => [key, value]),
+      this.defaultQueryParam.filter.map(({ key, value }) => [key, value]),
     );
 
     const controlConfig = this.columns.reduce<{
@@ -104,7 +109,7 @@ export class EnhancedZorroTableComponent<T = any>
           return {
             conf: {
               ...prevConf,
-              [item.column]: [this.queryParam.search[item.column]],
+              [item.column]: [this.defaultQueryParam.search[item.column]],
             },
             searchProps: [...prevSearchProps, item.column],
           };
@@ -213,7 +218,7 @@ export class EnhancedZorroTableComponent<T = any>
 
   onSearch(searchProp: string): void {
     this.remoteTableService.changeFilter({
-      filter: this.queryParam.filter,
+      filter: this.defaultQueryParam.filter,
     });
     this.remoteTableService.changeSearch({
       search: this.customizedSearchForm.value,
@@ -226,7 +231,7 @@ export class EnhancedZorroTableComponent<T = any>
       [searchProp]: null,
     });
     this.remoteTableService.changeFilter({
-      filter: this.queryParam.filter,
+      filter: this.defaultQueryParam.filter,
     });
     this.remoteTableService.changeSearch({
       search: this.customizedSearchForm.value,

@@ -1,7 +1,7 @@
 <enhanced-table-query-param
   *ngIf="searchPos !== 'header' && _columns && _columns.length > 0"
   [columns]="_columns"
-  [queryParam]="queryParam"
+  [queryParam]="defaultQueryParam"
   (queryParamChange)="paramFormChange($event)"
 ></enhanced-table-query-param>
 <div style="background: #fff; margin-top: 16px">
@@ -9,8 +9,8 @@
     *ngIf="_columns && _columns.length > 0"
     #remoteTable
     (nzQueryParams)="onQueryParamChange($event)"
-    [(nzPageIndex)]="queryParam.pageIndex"
-    [(nzPageSize)]="queryParam.pageSize"
+    [(nzPageIndex)]="defaultQueryParam.pageIndex"
+    [(nzPageSize)]="defaultQueryParam.pageSize"
     [nzData]="rows"
     [nzFrontPagination]="false"
     [nzShowTotal]="totalTmpl"
@@ -54,8 +54,8 @@
       <tr *ngFor="let row of remoteTable.data; index as i">
         <td *ngIf="useIndex">
           {{
-            queryParam.pageSize * queryParam.pageIndex -
-              queryParam.pageSize +
+            defaultQueryParam.pageSize * defaultQueryParam.pageIndex -
+              defaultQueryParam.pageSize +
               i +
               1
           }}
